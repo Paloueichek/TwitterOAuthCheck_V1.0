@@ -29,6 +29,8 @@ class ViewController: UIViewController {
         let task = URLSession(configuration: .ephemeral).dataTask(with: req) { (data, response, error) in
             if let error = error {
                 print(error)
+            
+                
             }
             else if let data = data {
                 print(String(data: data, encoding: .utf8) ?? "Does not look like a utf8 response :(")
@@ -43,7 +45,7 @@ class ViewController: UIViewController {
 //        let oauthParams = OAuth1aParameters(consumerKey: "gtcjwPuDs3uLdeX5dnfCF8lm9", consumerSecret: "TDmJBnyVVrrvDxZIncuSnIkRWcdV7WTlLLJG01hYypJYjaR8z3", accessToken: accessToken, callBack: "twittersdk://callback", method: "POST", url: url, postParams: nil)
 //        oauthParams.oAuthSign()
         
-   
+
     }
 }
 

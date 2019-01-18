@@ -38,12 +38,12 @@ class ViewController: UIViewController {
         }.resume()
         
         
-        // 2
-//        let url = TwitterConstants.baseUrl + "oauth/request_token"
-//        let accessToken = AccessToken(token: "725257982766931969-HZsWzQvWf9ee2HUJlrft826w4fsX0Xi",
-//                                      secret: "eqS6jiPtQkBnBZvBcgGWZeLPI99WAOdtbcMq2Vlj8ZHDT")
-//        let oauthParams = OAuth1aParameters(consumerKey: "gtcjwPuDs3uLdeX5dnfCF8lm9", consumerSecret: "TDmJBnyVVrrvDxZIncuSnIkRWcdV7WTlLLJG01hYypJYjaR8z3", accessToken: accessToken, callBack: "twittersdk://callback", method: "POST", url: url, postParams: nil)
-//        oauthParams.oAuthSign()
+         2
+        let url = TwitterConstants.baseUrl + "oauth/request_token"
+        let accessToken = AccessToken(token: "725257982766931969-HZsWzQvWf9ee2HUJlrft826w4fsX0Xi",
+                                      secret: "eqS6jiPtQkBnBZvBcgGWZeLPI99WAOdtbcMq2Vlj8ZHDT")
+        let oauthParams = OAuth1aParameters(consumerKey: "gtcjwPuDs3uLdeX5dnfCF8lm9", consumerSecret: "TDmJBnyVVrrvDxZIncuSnIkRWcdV7WTlLLJG01hYypJYjaR8z3", accessToken: accessToken, callBack: "twittersdk://callback", method: "POST", url: url, postParams: nil)
+        oauthParams.oAuthSign()
         
 
     }

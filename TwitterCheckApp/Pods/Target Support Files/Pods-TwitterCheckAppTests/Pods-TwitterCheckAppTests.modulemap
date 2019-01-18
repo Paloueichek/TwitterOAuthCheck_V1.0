@@ -1,0 +1,6 @@
+framework module Pods_TwitterCheckAppTests {
+  umbrella header "Pods-TwitterCheckAppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

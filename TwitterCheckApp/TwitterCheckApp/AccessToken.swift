@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct AccessToken {
     var token: String
     var secret: String

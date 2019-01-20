@@ -11,6 +11,7 @@ import UIKit
 struct TwitterConstants {
     static let baseUrl = "https://api.twitter.com/"
 }
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {

@@ -8,7 +8,6 @@
 
 
 import Foundation
-import CryptoSwift
 
 class OAuth1aParameters {
     
@@ -19,7 +18,7 @@ class OAuth1aParameters {
         static let paramSignature = "oauth_signature"
         static let paramSignatureMethod =  "oauth_signature_method"
         static let paramTimeStamp = "oauth_timestamp"
-        static let paramAccesToken = "access_token"
+        static let paramAccesToken = "oauth_token"
         static let paramVersion = "oauth_version"
         
         static let signatureMethod = "HMAC-SHA1"
@@ -35,19 +34,16 @@ class OAuth1aParameters {
     var postParams: [String: String]?
     
     var nonce = {
-        //return UUID().uuidString
-        return "olamakota123"
+        return UUID().uuidString
     }()
     
     var timestamp = {
-        //return String(Int(Date().timeIntervalSince1970))
-        return "15"
+        return String(Int(Date().timeIntervalSince1970))
     }()
     
     lazy var authorizationHeader: String = {
         let signatureBase = constructSignatureBase(nonce: nonce, timestamp: timestamp)
         let signature = calculateSignature(signatureBase: signatureBase)
-        print("\(nonce) \(timestamp) \(signature)")
         return constructAuthorizationHeader(nonce: nonce, timestamp: timestamp, signature: signature)
     }()
     
@@ -61,7 +57,7 @@ class OAuth1aParameters {
     init(consumerKey: String,
          consumerSecret: String,
          accessToken: AccessToken,
-         callBack: String,
+         callBack: String?,
          method: String,
          url: String,
          postParams: [String: String]?) {
@@ -116,7 +112,10 @@ class OAuth1aParameters {
         var paramsBuf = ""
         let numParams = params.count
         var current = 0
-        for (key, value) in params {
+        let sortedParams = params.sorted(by: {
+            return $0.key < $1.key
+        })
+        for (key, value) in sortedParams {
             paramsBuf += rfc3986encode(key) + "%3D" + rfc3986encode(value)
             current += 1
             if current < numParams {
@@ -138,35 +137,40 @@ class OAuth1aParameters {
         guard let requestTokenUrl = URL(string: "https://api.twitter.com/oauth/request_token") else { return }
         var urlRequest = URLRequest(url: requestTokenUrl)
         urlRequest.httpMethod = "POST"
-        
+        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+
         urlRequest.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            print(response)
+            if let error = error {
+                print(error)
+            }
+            else if let data = data {
+                print(String(data: data, encoding: .utf8) ?? "Does not look like a utf8 response :(")
+            }
         }.resume()
     }
     
     private func constructAuthorizationHeader(nonce: String, timestamp: String, signature: String) -> String {
-        var string = "OAuth"
+        var string = "OAuth "
         appendParameter(string: &string, name: OAuthConstants.paramCallback, value: callBack)
         appendParameter(string: &string, name: OAuthConstants.paramConsumerKey, value: consumerKey)
         appendParameter(string: &string, name: OAuthConstants.paramNonce, value: nonce)
         appendParameter(string: &string, name: OAuthConstants.paramSignature, value: signature)
         appendParameter(string: &string, name: OAuthConstants.paramSignatureMethod, value: OAuthConstants.signatureMethod)
+        appendParameter(string: &string, name: OAuthConstants.paramTimeStamp, value: timestamp)
         appendParameter(string: &string, name: OAuthConstants.paramAccesToken, value: accessToken?.token)
-        appendParameter(string: &string, name: OAuthConstants.version, value: OAuthConstants.version)
+        appendParameter(string: &string, name: OAuthConstants.paramVersion, value: OAuthConstants.version)
         string.removeLast()
         return string
     }
     
     private func appendParameter(string: inout String, name: String, value: String?) {
         if let value = value {
-            string += "  " + rfc3986encode(name) + "=\"" + rfc3986encode(value) + "\","
+            string += "" + rfc3986encode(name) + "=\"" + rfc3986encode(value) + "\","
         }
     }
 }
-
-
 
 extension URL {
     func queryParameters() -> [String: String] {

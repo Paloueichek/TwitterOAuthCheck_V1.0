@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CommonCrypto
 
 //    kCCHmacAlgSHA1,
 //    kCCHmacAlgMD5,

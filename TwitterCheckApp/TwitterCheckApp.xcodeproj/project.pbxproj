@@ -13,7 +13,6 @@
 		E13B287221F0F62400482DF6 /* OAuth1aParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B286C21F0E8B700482DF6 /* OAuth1aParameters.swift */; };
 		E13B287321F0F62900482DF6 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B286E21F0EAF400482DF6 /* AccessToken.swift */; };
 		E13B287921F0FC4F00482DF6 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B287821F0FC4F00482DF6 /* HMAC.swift */; };
-		E13B287E21F11A1F00482DF6 /* OhhAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B287D21F11A1F00482DF6 /* OhhAuth.swift */; };
 		E15A95B721EA3BB500463CA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A95B621EA3BB500463CA0 /* AppDelegate.swift */; };
 		E15A95B921EA3BB500463CA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A95B821EA3BB500463CA0 /* ViewController.swift */; };
 		E15A95BC21EA3BB500463CA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E15A95BA21EA3BB500463CA0 /* Main.storyboard */; };
@@ -53,8 +52,6 @@
 		E13B286C21F0E8B700482DF6 /* OAuth1aParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth1aParameters.swift; sourceTree = "<group>"; };
 		E13B286E21F0EAF400482DF6 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		E13B287821F0FC4F00482DF6 /* HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		E13B287A21F0FC6000482DF6 /* TwitterCheckApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TwitterCheckApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		E13B287D21F11A1F00482DF6 /* OhhAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhhAuth.swift; sourceTree = "<group>"; };
 		E15A95B321EA3BB500463CA0 /* TwitterCheckApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterCheckApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15A95B621EA3BB500463CA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E15A95B821EA3BB500463CA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,7 +127,6 @@
 				E15A95B421EA3BB500463CA0 /* Products */,
 				3D1687ABF12618EC14987E28 /* Pods */,
 				D4A0E3CE5C1671167DF568FE /* Frameworks */,
-				E13B287A21F0FC6000482DF6 /* TwitterCheckApp-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -156,7 +152,6 @@
 				E15A95BF21EA3BB700463CA0 /* LaunchScreen.storyboard */,
 				E15A95C221EA3BB700463CA0 /* Info.plist */,
 				E13B287821F0FC4F00482DF6 /* HMAC.swift */,
-				E13B287D21F11A1F00482DF6 /* OhhAuth.swift */,
 			);
 			path = TwitterCheckApp;
 			sourceTree = "<group>";
@@ -190,7 +185,6 @@
 				E15A95AF21EA3BB500463CA0 /* Sources */,
 				E15A95B021EA3BB500463CA0 /* Frameworks */,
 				E15A95B121EA3BB500463CA0 /* Resources */,
-				DDD0CDCDFA9752D35B114ED2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -378,28 +372,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DDD0CDCDFA9752D35B114ED2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TwitterCheckApp/Pods-TwitterCheckApp-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TwitterCheckApp/Pods-TwitterCheckApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -412,7 +384,6 @@
 				E15A95B921EA3BB500463CA0 /* ViewController.swift in Sources */,
 				E15A95B721EA3BB500463CA0 /* AppDelegate.swift in Sources */,
 				E13B287321F0F62900482DF6 /* AccessToken.swift in Sources */,
-				E13B287E21F11A1F00482DF6 /* OhhAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,7 +569,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Patyrk-Aloueichek.TwitterCheckApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "TwitterCheckApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -620,7 +590,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Patyrk-Aloueichek.TwitterCheckApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "TwitterCheckApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import TwitterCheckApp
-import OhhAuth
 
 class TwitterCheckAppTests: XCTestCase {
 

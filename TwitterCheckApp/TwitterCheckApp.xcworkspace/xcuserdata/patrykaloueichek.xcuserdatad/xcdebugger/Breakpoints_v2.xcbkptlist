@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TwitterCheckApp/ViewController.swift"
-            timestampString = "569771688.293543"
+            filePath = "TwitterCheckApp/OAuth1aParameters.swift"
+            timestampString = "569776175.326857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "webView(_:didStartProvisionalNavigation:)"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "sendAccessToken(input:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -160,26 +160,27 @@ class OAuth1aParameters {
         }.resume()
     }
     
-    func getOAuthToken(input: URL) -> String {
+    func getOAuthToken(input: URL) {
        var oauthVerifier = ""
        let stringFromURL = input.absoluteString
         
         if stringFromURL.starts(with: "http://oauthswift.herokuapp.com/") {
             let separatorSet = CharacterSet(charactersIn: "?, &")
-            let result = stringFromURL.components(separatedBy: separatorSet)
+            var result = stringFromURL.components(separatedBy: separatorSet)
+            result.remove(at: 0)
             print(result)
-            oauthVerifier = result[2]
+            oauthVerifier = result[1]
+            sendAccessToken(input: oauthVerifier)
         }
-        return oauthVerifier
     }
     
-    func sendAccessToken() {
-        guard let requestAccessTokenUrl = URL(string: "https://api.twitter.com/oauth/access_token") else { return }
-        var urlRequest = URLRequest(url: requestAccessTokenUrl)
+    func sendAccessToken(input : String) {
+        let requestAccessTokenUrl = URL(string: "https://api.twitter.com/oauth/access_token?" + input)
+        print(requestAccessTokenUrl)
+        var urlRequest = URLRequest(url: requestAccessTokenUrl!)
         
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
         urlRequest.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
@@ -188,14 +189,14 @@ class OAuth1aParameters {
             }
             else if let data = data {
                 let accessToken = String(data: data, encoding: .utf8)
-                
+                print(accessToken)
             }
         }
     }
     
     
     private func constructAuthorizationHeader(nonce: String, timestamp: String, signature: String) -> String {
-        var string = "OAuth"
+        var string = "OAuth "
         appendParameter(string: &string, name: OAuthConstants.paramCallback, value: callBack)
         appendParameter(string: &string, name: OAuthConstants.paramConsumerKey, value: consumerKey)
         appendParameter(string: &string, name: OAuthConstants.paramNonce, value: nonce)

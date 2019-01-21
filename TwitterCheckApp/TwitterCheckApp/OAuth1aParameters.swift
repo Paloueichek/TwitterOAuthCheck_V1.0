@@ -8,6 +8,7 @@
 
 
 import Foundation
+import WebKit
 
 class OAuth1aParameters {
     
@@ -25,6 +26,7 @@ class OAuth1aParameters {
         static let version = "1.0"
     }
     
+    var oauthToken: String?
     var consumerKey: String
     var consumerSecret: String
     var accessToken: AccessToken?
@@ -132,8 +134,7 @@ class OAuth1aParameters {
         return binarySignature.base64EncodedString()
     }
     
-    func oAuthSign() {
-        
+    func oAuthSign(completion: @escaping(String) ->()) {
         guard let requestTokenUrl = URL(string: "https://api.twitter.com/oauth/request_token") else { return }
         var urlRequest = URLRequest(url: requestTokenUrl)
         urlRequest.httpMethod = "POST"
@@ -146,13 +147,55 @@ class OAuth1aParameters {
                 print(error)
             }
             else if let data = data {
-                print(String(data: data, encoding: .utf8) ?? "Does not look like a utf8 response :(")
+                //print(String(data: data, encoding: .utf8) ?? "Does not look like a utf8 response :(")
+                let oauthToken = String(data: data, encoding: .utf8)
+                guard let componentWithoutAndPercing = oauthToken?.components(separatedBy: "&") else { return }
+            
+                self.oauthToken = componentWithoutAndPercing.first
+              
+                guard let getOauth = self.oauthToken else { return }
+                completion(getOauth)
             }
+            
         }.resume()
     }
     
+    func getOAuthToken(input: URL) -> String {
+       var oauthVerifier = ""
+       let stringFromURL = input.absoluteString
+        
+        if stringFromURL.starts(with: "http://oauthswift.herokuapp.com/") {
+            let separatorSet = CharacterSet(charactersIn: "?, &")
+            let result = stringFromURL.components(separatedBy: separatorSet)
+            print(result)
+            oauthVerifier = result[2]
+        }
+        return oauthVerifier
+    }
+    
+    func sendAccessToken() {
+        guard let requestAccessTokenUrl = URL(string: "https://api.twitter.com/oauth/access_token") else { return }
+        var urlRequest = URLRequest(url: requestAccessTokenUrl)
+        
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        urlRequest.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            else if let data = data {
+                let accessToken = String(data: data, encoding: .utf8)
+                
+            }
+        }
+    }
+    
+    
     private func constructAuthorizationHeader(nonce: String, timestamp: String, signature: String) -> String {
-        var string = "OAuth "
+        var string = "OAuth"
         appendParameter(string: &string, name: OAuthConstants.paramCallback, value: callBack)
         appendParameter(string: &string, name: OAuthConstants.paramConsumerKey, value: consumerKey)
         appendParameter(string: &string, name: OAuthConstants.paramNonce, value: nonce)
